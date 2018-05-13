@@ -46,3 +46,28 @@ result:
 | "23450"      | "70"         | 
 
 ## 3. Return a list of stations with a count of number of trips starting at that station but ordered by dock count
+
+```
+with 
+dockcount_station as (
+select dockcount, station_id, name from stations 
+order by dockcount asc
+)
+select ds.* from trips t
+join dockcount_station ds on ds.station_id = t.start_terminal
+limit 10
+```
+
+result:
+| "dockcount" | "station id" | "name"                             | 
+|-------------|--------------|------------------------------------| 
+| "11"        | "37"         | "Cowper at University"             | 
+| "11"        | "32"         | "Castro Street and El Camino Real" | 
+| "11"        | "35"         | "University and Emerson"           | 
+| "11"        | "37"         | "Cowper at University"             | 
+| "11"        | "4"          | "Santa Clara at Almaden"           | 
+| "11"        | "32"         | "Castro Street and El Camino Real" | 
+| "11"        | "4"          | "Santa Clara at Almaden"           | 
+| "11"        | "37"         | "Cowper at University"             | 
+| "11"        | "37"         | "Cowper at University"             | 
+| "11"        | "4"          | "Santa Clara at Almaden"           | 
