@@ -3,7 +3,7 @@ Joins and CTEs
 
 ## 1.  What are the three longest trips on rainy days?
 
-```
+```sql
 with 
 total_precip as (
 select date, sum(precipitationin) as total_rain from weather 
@@ -29,7 +29,7 @@ result:
 
 ## 2. Which station is full most often?
 
-```
+```sql
 with dock_full as (
 select count(station_id) as full_count, station_id from status
 where docks_available = 0
@@ -47,7 +47,7 @@ result:
 
 ## 3. Return a list of stations with a count of number of trips starting at that station but ordered by dock count
 
-```
+```sql
 with 
 dockcount_station as (
 select dockcount, station_id, name from stations 
@@ -75,7 +75,7 @@ result:
 
 ## 4. (Challenge) What's the length of the longest trip for each day it rains anywhere?
 
-```
+```sql
 with 
 total_precip as (
 select date, sum(precipitationin) as total_rain from weather 
