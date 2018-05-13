@@ -72,3 +72,38 @@ result:
 | "11"        | "37"         | "Cowper at University"             | 
 | "11"        | "37"         | "Cowper at University"             | 
 | "11"        | "4"          | "Santa Clara at Almaden"           | 
+
+## 4. (Challenge) What's the length of the longest trip for each day it rains anywhere?
+
+```
+with 
+total_precip as (
+select date, sum(precipitationin) as total_rain from weather 
+group by date 
+),
+sorted_trips as (
+select duration, trip_id, bike_id, start_station, end_station, zip_code, strftime('%Y-%m-%d',start_date) as date from trips
+order by duration desc
+)
+select max(t.duration) , t.date from total_precip tp 
+join sorted_trips t on t.date = tp.date
+where total_rain > 0
+group by t.date
+order by t.date
+limit 10
+```
+
+result:
+
+| "max(t.duration)" | "date"       | 
+|-------------------|--------------| 
+| "25667"           | "2015-09-30" | 
+| "51081"           | "2015-10-01" | 
+| "11107"           | "2015-10-27" | 
+| "22801"           | "2015-10-28" | 
+| "43899"           | "2015-11-01" | 
+| "12246"           | "2015-11-02" | 
+| "7874"            | "2015-11-08" | 
+| "12838"           | "2015-11-09" | 
+| "61234"           | "2015-11-10" | 
+| "84349"           | "2015-11-15" | 
